@@ -7,12 +7,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.FirebaseAuth
-import com.login.ui.screen.HomeScreen
+import com.login.ui.screen.home.HomeScreen
+import com.login.ui.screen.home.HomeViewModel
 import com.login.ui.screen.login.LoginScreen
 import com.login.ui.screen.signup.SignupScreen
 
 @Composable
-fun Navigation() {
+fun Navigation(viewModel: HomeViewModel) {
     val navController = rememberNavController()
     val currentUser = FirebaseAuth.getInstance().currentUser
     val startDestination = if (currentUser != null) Routes.homeScreen else Routes.loginScreen
@@ -49,7 +50,7 @@ fun Navigation() {
             LoginScreen(navController = navController)
         }
         composable(Routes.homeScreen) {
-            HomeScreen(navController = navController)
+            HomeScreen(navController = navController, viewModel = viewModel)
         }
         composable(Routes.signupScreen) {
             SignupScreen(navController = navController)
